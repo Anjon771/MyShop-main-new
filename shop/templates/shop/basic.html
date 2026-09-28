@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <!-- Add Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- Facebook comments plugin -->
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_G8/sdk.js#xfbml=1&version=v18.0" nonce="l857zXjV"></script>
+
+<!-- Add Bootstrap JS (jQuery is required) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+  <title>{% block title %} {% endblock %}</title>
+
+  <style>
+    
+      {% block css %}
+    
+      {% endblock %}
+    
+  </style>
+
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-dark bg-dark sticky-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/shop">MyShop</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/shop">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/shop/about/">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/shop/tracker/">Tracker</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/shop/contact">Contact Us</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <form method="get"   action="/shop/search/" class="d-flex" role="search">
+      <input name="search" id="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success mx-2 me-1" type="submit">Search</button>
+    </form>
+    <button type="button" id="popcart" class="btn btn-secondary" data-html="true" data-toggle="popover" data-placement="bottom" 
+      data-content="Popover content goes here...">Cart(<span id="cart">0</span>)</button>
+  </nav>
+
+  {% block body %} {% endblock %}
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+  <script>
+    $(document).ready(function () {
+      $('#popcart').popover();
+      
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.type === "attributes") {
+            $('#popcart').popover('show');
+          }
+        });
+      });
+
+      observer.observe(document.getElementById("popcart"), {
+        attributeFilter: [ 'data-content' ]
+      });
+    });
+  </script>
+
+  {% block js %} {% endblock %}
+
+</body>
+
+</html>
